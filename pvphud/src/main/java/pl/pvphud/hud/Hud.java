@@ -58,8 +58,8 @@ public final class Hud {
             }
         }
 
-        boolean needNum = k.targetDurStyle != 0 || !fx.isEmpty();
-        int ch = Cells.cellH(needNum);
+        int chEq = Cells.cellH(false);  // itemy przeciwnika: sama ikona, bez wytrzymałości i liczników
+        int chFx = Cells.cellH(true);   // efekty: ikona + czas
         int pad = 5;
         int W = Cells.W;
 
@@ -67,7 +67,8 @@ public final class Hud {
         float hp = t.getHealth();
         float max = Math.max(1f, t.getMaxHealth());
         float abs = t.getAbsorptionAmount();
-        String hpText = fmt1(hp) + (abs > 0 ? "+" + fmt1(abs) : "");
+        float div = k.targetHearts ? 2f : 1f;
+        String hpText = fmt1(hp / div) + (abs > 0 ? "+" + fmt1(abs / div) : "");
         boolean hpNum = k.targetShowHealth && k.targetHealthStyle != 0;
         boolean hpBar = k.targetShowHealth && k.targetHealthStyle != 1;
 
@@ -79,14 +80,14 @@ public final class Hud {
             int rowW = Math.max(eq.size(), fx.size()) * W;
             w = Math.max(Math.max(headW, rowW), 96) + pad * 2;
             h = pad + headH + 2;
-            if (!eq.isEmpty()) h += ch + 2;
-            if (!fx.isEmpty()) h += ch + 2;
+            if (!eq.isEmpty()) h += chEq + 2;
+            if (!fx.isEmpty()) h += chFx + 2;
             h += pad - 2;
         } else {
             int cols = (eq.isEmpty() ? 0 : W) + (fx.isEmpty() ? 0 : W) + (!eq.isEmpty() && !fx.isEmpty() ? 4 : 0);
             w = Math.max(Math.max(headW, cols), 96) + pad * 2;
-            int rows = Math.max(eq.size(), fx.size());
-            h = pad + headH + 2 + (rows > 0 ? rows * ch + 2 : 0) + pad - 2;
+            int rows = Math.max(eq.size() * chEq, fx.size() * chFx);
+            h = pad + headH + 2 + (rows > 0 ? rows + 2 : 0) + pad - 2;
         }
 
         float sc = k.targetScale;
@@ -123,20 +124,20 @@ public final class Hud {
 
         if (!k.targetVertical) {
             if (!eq.isEmpty()) {
-                drawRow(c, tr, eq, pad, y, k.targetDurStyle, k.targetText, false, ch);
-                y += ch + 2;
+                drawRow(c, tr, eq, pad, y, -1, k.targetText, false, chEq);
+                y += chEq + 2;
             }
             if (!fx.isEmpty()) {
-                drawRow(c, tr, fx, pad, y, k.targetDurStyle, k.targetText, false, ch);
+                drawRow(c, tr, fx, pad, y, 0, k.targetText, false, chFx);
             }
         } else {
             int x = pad;
             if (!eq.isEmpty()) {
-                drawRow(c, tr, eq, x, y, k.targetDurStyle, k.targetText, true, ch);
+                drawRow(c, tr, eq, x, y, -1, k.targetText, true, chEq);
                 x += W + 4;
             }
             if (!fx.isEmpty()) {
-                drawRow(c, tr, fx, x, y, k.targetDurStyle, k.targetText, true, ch);
+                drawRow(c, tr, fx, x, y, 0, k.targetText, true, chFx);
             }
         }
         c.getMatrices().pop();
