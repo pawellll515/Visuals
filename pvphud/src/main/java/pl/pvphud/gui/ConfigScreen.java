@@ -344,8 +344,6 @@ public class ConfigScreen extends Screen {
         t.add(new Cycle("Styl zdrowia", hp3, () -> ModConfig.I.targetHealthStyle, v -> ModConfig.I.targetHealthStyle = v));
         t.add(toggle("Itemy w rękach", () -> ModConfig.I.targetShowHands, v -> ModConfig.I.targetShowHands = v));
         t.add(toggle("Zbroja", () -> ModConfig.I.targetShowArmor, v -> ModConfig.I.targetShowArmor = v));
-        t.add(toggle("Efekty", () -> ModConfig.I.targetShowEffects, v -> ModConfig.I.targetShowEffects = v));
-        t.add(slider("Maks. efektów", 1, 16, 1, "%.0f", () -> ModConfig.I.targetMaxEffects, v -> ModConfig.I.targetMaxEffects = (int) v));
         t.add(new Header("Wygląd"));
         t.add(color("Tło", () -> ModConfig.I.targetBg, v -> ModConfig.I.targetBg = v));
         t.add(color("Ramka", () -> ModConfig.I.targetBorder, v -> ModConfig.I.targetBorder = v));
