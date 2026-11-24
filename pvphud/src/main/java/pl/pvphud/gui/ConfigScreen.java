@@ -357,6 +357,7 @@ public class ConfigScreen extends Screen {
         List<Row> s = new ArrayList<>();
         s.add(new Header("Ogólne"));
         s.add(toggle("Cały HUD moda", () -> ModConfig.I.hudEnabled, v -> ModConfig.I.hudEnabled = v));
+        s.add(toggle("Ukryj vanilla efekty", () -> ModConfig.I.hideVanillaEffects, v -> ModConfig.I.hideVanillaEffects = v));
         s.add(new Cycle("Wytrzymałość", bar3, () -> ModConfig.I.statusDurStyle, v -> ModConfig.I.statusDurStyle = v));
         s.add(toggle("Liczba itemów zamiast dura", () -> ModConfig.I.itemCountInsteadOfDura, v -> ModConfig.I.itemCountInsteadOfDura = v));
         s.add(new Info("np. totem: pokaże ile totemów masz w ekwipunku"));
