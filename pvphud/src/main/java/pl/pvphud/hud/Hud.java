@@ -51,7 +51,7 @@ public final class Hud {
         TextRenderer tr = mc.textRenderer;
 
         List<Cell> eq = new ArrayList<>();
-        List<Cell> fx = new ArrayList<>();
+        List<Cell> fx = new ArrayList<>(); // zawsze puste: efekty innych graczy nie są wysyłane do klienta
         if (k.targetShowHands) {
             addIfNotEmpty(eq, t.getMainHandStack());
             addIfNotEmpty(eq, t.getOffHandStack());
@@ -59,14 +59,6 @@ public final class Hud {
         if (k.targetShowArmor) {
             for (EquipmentSlot s : ARMOR) addIfNotEmpty(eq, t.getEquippedStack(s));
         }
-        if (k.targetShowEffects) {
-            int n = 0;
-            for (StatusEffectInstance e : t.getStatusEffects()) {
-                if (n++ >= k.targetMaxEffects) break;
-                fx.add(Cell.effect(e));
-            }
-        }
-
         int chEq = Cells.cellH(false);  // itemy przeciwnika: sama ikona
         int chFx = Cells.cellH(true);   // efekty: ikona + czas
         int pad = 5;
