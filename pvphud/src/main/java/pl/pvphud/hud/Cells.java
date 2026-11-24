@@ -55,6 +55,13 @@ public final class Cells {
 
         c.drawItem(s, x + 3, y + 1);
 
+        // style < 0: brak wytrzymałości i liczników (np. itemy przeciwnika)
+        if (style < 0) return;
+
+        // pasek i tekst muszą być NAD itemem (item jest rysowany z przesunięciem Z), tak jak w vanilla
+        c.getMatrices().push();
+        c.getMatrices().translate(0f, 0f, 200f);
+
         boolean dmg = s.isDamageable();
         if (dmg && style != 1 && s.isItemBarVisible()) {
             int bx = x + 5, by = y + 14;
@@ -75,6 +82,7 @@ public final class Cells {
         if (t != null) {
             c.drawCenteredTextWithShadow(tr, t, x + W / 2, y + 19, col);
         }
+        c.getMatrices().pop();
     }
 
     private static void drawEffect(DrawContext c, TextRenderer tr, StatusEffectInstance e, int x, int y, int textColor) {
