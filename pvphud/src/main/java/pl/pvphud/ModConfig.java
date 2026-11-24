@@ -57,6 +57,7 @@ public class ModConfig {
     public Elem itemHud = new Elem(0.74f, 0.88f, false);
     public int statusDurStyle = 2;
     public boolean itemCountInsteadOfDura = true;
+    public boolean hideVanillaEffects = true;
 
     // ---- Marker na celu ----
     public boolean markerEnabled = true;
