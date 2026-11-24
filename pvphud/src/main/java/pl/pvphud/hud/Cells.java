@@ -92,7 +92,10 @@ public final class Cells {
 
         if (e.getAmplifier() > 0) {
             String lvl = Fmt.roman(e.getAmplifier() + 1);
-            c.drawTextWithShadow(tr, lvl, x + W - tr.getWidth(lvl), y, 0xFFFFD36B);
+            c.getMatrices().push();
+            c.getMatrices().translate(0f, 0f, 200f);
+            c.drawTextWithShadow(tr, lvl, x + W - tr.getWidth(lvl), y, 0xFFFFFFFF);
+            c.getMatrices().pop();
         }
         c.drawCenteredTextWithShadow(tr, Fmt.duration(e), x + W / 2, y + 19, textColor);
     }
