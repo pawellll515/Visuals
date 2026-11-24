@@ -13,7 +13,9 @@ public final class TargetTracker {
     private static PlayerEntity target;
     private static long lastMs;
 
+    /** Uderzenie gracza. Tryb 1 ("tylko patrzenie") ignoruje uderzenia. */
     public static void hit(PlayerEntity p) {
+        if (ModConfig.I.targetMode == 1) return;
         target = p;
         lastMs = System.currentTimeMillis();
     }
@@ -33,10 +35,13 @@ public final class TargetTracker {
         // przy otwartym menu pokazujemy podgląd na sobie
         if (mc.currentScreen instanceof ConfigScreen) return mc.player;
 
-        PlayerEntity looked = lookedAt(mc);
-        if (k.targetMode == 1 && looked != null) {
-            target = looked;
-            lastMs = System.currentTimeMillis();
+        // tryby 1 i 2: samo patrzenie na gracza też pokazuje panel
+        if (k.targetMode >= 1) {
+            PlayerEntity looked = lookedAt(mc);
+            if (looked != null) {
+                target = looked;
+                lastMs = System.currentTimeMillis();
+            }
         }
         if (target == null) return null;
         if (target.isRemoved() || !target.isAlive()) return null;
