@@ -73,12 +73,12 @@ public final class WorldVisuals {
             int col = k.markerColor;
             int fill = (col & 0xFFFFFF) | (((col >>> 24) / 4) << 24);
 
-            quad(vc, m, fill, -s, -s, 0, -s, s, 0, s, s, 0, s, -s, 0);
+            quad2(vc, m, fill, -s, -s, 0, -s, s, 0, s, s, 0, s, -s, 0);
             // ramka
-            quad(vc, m, col, -s, s - t, 0, -s, s, 0, s, s, 0, s, s - t, 0);
-            quad(vc, m, col, -s, -s, 0, -s, -s + t, 0, s, -s + t, 0, s, -s, 0);
-            quad(vc, m, col, -s, -s, 0, -s, s, 0, -s + t, s, 0, -s + t, -s, 0);
-            quad(vc, m, col, s - t, -s, 0, s - t, s, 0, s, s, 0, s, -s, 0);
+            quad2(vc, m, col, -s, s - t, 0, -s, s, 0, s, s, 0, s, s - t, 0);
+            quad2(vc, m, col, -s, -s, 0, -s, -s + t, 0, s, -s + t, 0, s, -s, 0);
+            quad2(vc, m, col, -s, -s, 0, -s, s, 0, -s + t, s, 0, -s + t, -s, 0);
+            quad2(vc, m, col, s - t, -s, 0, s - t, s, 0, s, s, 0, s, -s, 0);
             ms.pop();
         }
     }
@@ -101,6 +101,14 @@ public final class WorldVisuals {
         quad(v, m, c, x0, y0, z1, x1, y0, z1, x1, y1, z1, x0, y1, z1);
         quad(v, m, c, x0, y0, z0, x0, y0, z1, x0, y1, z1, x0, y1, z0);
         quad(v, m, c, x1, y0, z0, x1, y1, z0, x1, y1, z1, x1, y0, z1);
+    }
+
+    /** Rysuje quad z obu stron (marker jest cienki i bez tego znika przy włączonym culling). */
+    private static void quad2(VertexConsumer v, Matrix4f m, int c,
+                              float ax, float ay, float az, float bx, float by, float bz,
+                              float cx, float cy, float cz, float dx, float dy, float dz) {
+        quad(v, m, c, ax, ay, az, bx, by, bz, cx, cy, cz, dx, dy, dz);
+        quad(v, m, c, dx, dy, dz, cx, cy, cz, bx, by, bz, ax, ay, az);
     }
 
     private static void quad(VertexConsumer v, Matrix4f m, int c,
