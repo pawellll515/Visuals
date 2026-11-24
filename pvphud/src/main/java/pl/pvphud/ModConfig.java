@@ -33,12 +33,13 @@ public class ModConfig {
 
     // ---- Target HUD ----
     public boolean targetEnabled = true;
-    public int targetMode = 0;              // 0 = po uderzeniu, 1 = gdy patrzę na gracza
+    public int targetMode = 2;              // 0 = po uderzeniu, 1 = gdy patrzę, 2 = uderzenie + patrzenie
     public float targetTime = 4f;           // sekundy
     public float targetX = 0.5f, targetY = 0.62f; // środek panelu
     public float targetScale = 1f;
     public boolean targetVertical = false;
     public boolean targetShowHealth = true;
+    public boolean targetHearts = true;     // true = serca (1 serce = 2 HP), false = HP
     public int targetHealthStyle = 2;       // 0 pasek, 1 liczba, 2 oba
     public boolean targetShowHands = true;
     public boolean targetShowArmor = true;
