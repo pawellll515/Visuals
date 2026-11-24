@@ -1,4 +1,3 @@
-InGameHudMixin · JAVA
 package pl.pvphud.mixin;
  
 import net.minecraft.client.gui.DrawContext;
