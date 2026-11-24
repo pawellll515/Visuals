@@ -326,7 +326,7 @@ public class ConfigScreen extends Screen {
     private void buildTabs() {
         final String[] bar3 = {"Pasek (vanilla)", "Liczba", "Pasek + liczba"};
         final String[] hp3 = {"Pasek", "Liczba", "Pasek + liczba"};
-        final String[] mode2 = {"Po uderzeniu", "Gdy patrzę"};
+        final String[] mode2 = {"Tylko uderzenie", "Tylko patrzenie", "Uderzenie lub patrzenie"};
 
         // --- Target HUD
         List<Row> t = new ArrayList<>();
@@ -340,12 +340,12 @@ public class ConfigScreen extends Screen {
         t.add(slider("Skala", 0.5, 3, 0.05, "%.2fx", () -> ModConfig.I.targetScale, v -> ModConfig.I.targetScale = (float) v));
         t.add(new Header("Zawartość"));
         t.add(toggle("Zdrowie", () -> ModConfig.I.targetShowHealth, v -> ModConfig.I.targetShowHealth = v));
+        t.add(toggle("Serca zamiast HP", () -> ModConfig.I.targetHearts, v -> ModConfig.I.targetHearts = v));
         t.add(new Cycle("Styl zdrowia", hp3, () -> ModConfig.I.targetHealthStyle, v -> ModConfig.I.targetHealthStyle = v));
         t.add(toggle("Itemy w rękach", () -> ModConfig.I.targetShowHands, v -> ModConfig.I.targetShowHands = v));
         t.add(toggle("Zbroja", () -> ModConfig.I.targetShowArmor, v -> ModConfig.I.targetShowArmor = v));
         t.add(toggle("Efekty", () -> ModConfig.I.targetShowEffects, v -> ModConfig.I.targetShowEffects = v));
         t.add(slider("Maks. efektów", 1, 16, 1, "%.0f", () -> ModConfig.I.targetMaxEffects, v -> ModConfig.I.targetMaxEffects = (int) v));
-        t.add(new Cycle("Wytrzymałość", bar3, () -> ModConfig.I.targetDurStyle, v -> ModConfig.I.targetDurStyle = v));
         t.add(new Header("Wygląd"));
         t.add(color("Tło", () -> ModConfig.I.targetBg, v -> ModConfig.I.targetBg = v));
         t.add(color("Ramka", () -> ModConfig.I.targetBorder, v -> ModConfig.I.targetBorder = v));
